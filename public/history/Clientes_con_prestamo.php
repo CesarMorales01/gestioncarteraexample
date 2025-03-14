@@ -1,1 +1,123 @@
-<html><head><link rel="StyleSheet" href="estilos.php" type="text/css"><title>Lista Clientes con prestamo</title>  <br></head>  <body><?phpinclude("datos.php");$Cobro=$_REQUEST['Cobro'];$mysql=new mysqli($hostname_localhost,$username_localhost,$password_localhost,$database_localhost);if ($mysql->connect_error)die("Problemas con la conexión a la base de datos");mysqli_set_charset($mysql,'utf8');$regist1=$mysql->query("SELECT COUNT(*) from clientes JOIN prestamos on clientes.cedula=prestamos.cedula where prestamos.Cobro=$Cobro");$regist=$mysql->query("SELECT nombre, prestamos.cedula, fecha_prest, valorprestamo from clientes JOIN prestamos on clientes.cedula=prestamos.cedula where prestamos.Cobro=$Cobro");$read1=$regist1->fetch_array();echo '<h2>Clientes con prestamo: '.$read1['COUNT(*)'].'</h2>';// prestamos segun interes$get_tasas=$mysql->query("SELECT * from prestamos where Cobro=$Cobro");     while($read_tasas=$get_tasas->fetch_array()){	$contador=$contador+1;	$total_pagar_t=$read_tasas['totalapagar'];	$months=get_meses($read_tasas['n_cuotas'], $read_tasas['periodicidad']);	$rate=($read_tasas['totalapagar']-$read_tasas['valorprestamo'])/$months;	$rate_mes_porc=($rate*100)/$read_tasas['valorprestamo'];	$check_total_saldos=$read_tasas['tt_saldo']+$check_total_saldos;	 $rate_aprox=number_format($rate_mes_porc,2,",",".");	if($rate_aprox=="10,00"){		 $cont_10=$cont_10+1;		 $ced_10[]=$read_tasas['cedula'];		 $total_10=$read_tasas['valorprestamo']+$total_10;	}else {		if($rate_aprox=="5,00"){		 $cont_5=$cont_5+1;		 $ced_5[]=$read_tasas['cedula'];		 $total_5=$read_tasas['valorprestamo']+$total_5;		}else{			if($rate_aprox=="6,67"){			$cont_67=$cont_67+1;			$ced_67[]=$read_tasas['cedula'];			$total_67=$read_tasas['valorprestamo']+$total_67;			} else{				if($rate_aprox=="7,50"){					 $cont_75=$cont_75+1;					 $ced_75[]=$read_tasas['cedula'];					 $total_75=$read_tasas['valorprestamo']+$total_75;				}else{					 $cont_otros=$cont_otros+1;					 $ced_otros[]=$read_tasas['cedula'];					 $total_otros=$read_tasas['valorprestamo']+$total_otros;					 				}			}		}	}			}function get_meses($n_cuotas, $periodicidad){	if($periodicidad=="diario"){		$meses=$n_cuotas/30;	}	if($periodicidad=="semanal"){		$meses=$n_cuotas/4;	}	if($periodicidad=="quincenal"){		$meses=$n_cuotas/2;	}	if($periodicidad=="mensual"){		 $meses=$n_cuotas/1;	}	return $meses;}echo '<table class="tablalistado1"style="margin: 0 auto;">';echo '<tr><th colspan="5">Prestamos clasificados segun tasa '.$contador.'</th></tr>';echo '<tr><th>Interes</th><th>Cantidad</th><th>Total valor prestado</th><th>Ganancia mensual</th><th>Mostrar prestamos</th></tr>';    	echo '<tr>';   	// prestamos al 10	echo '<td>';    echo "10%";      echo '</td>';	echo '<td>';    echo $cont_10;      echo '</td>';	echo '<td>';    echo number_format($total_10,2,",",".");      echo '</td>';	echo '<td>';	$ganancia_mensual_10=$total_10*0.1;    echo number_format($ganancia_mensual_10,2,",",".");      echo '</td>';	echo '<td>';	echo '<form action="prestamos_por_int.php" method="post">';	echo '<input type="hidden" name="cedulas" value="'.$cont_10.'" >';	echo '<input type="submit" value="Submit">';	echo '</form>';    echo '</td>';	echo '</tr>'; 	echo '<tr>';   	// prestamos al 7,5	echo '<td>';    echo "7.5%";      echo '</td>';	echo '<td>';    echo $cont_75;      echo '</td>';	echo '<td>';    echo number_format($total_75,2,",",".");      echo '</td>';	echo '<td>';	$ganancia_mensual_75=$total_75*0.075;    echo number_format($ganancia_mensual_75,2,",",".");      echo '</td>';	echo '<td>';	echo '<form action="prestamos_por_int.php" method="post">';	echo '<input type="hidden" name="cedulas" value="'.$cont_75.'" >';	echo '<input type="submit" value="Submit">';	echo '</form>';    echo '</td>';	echo '</tr>';	echo '<tr>';   	// prestamos al 6.67	echo '<td>';    echo "6.67%";      echo '</td>';	echo '<td>';    echo $cont_67;      echo '</td>';	echo '<td>';    echo number_format($total_67,2,",",".");      echo '</td>';	echo '<td>';	$ganancia_mensual_67=$total_67*0.067;    echo number_format($ganancia_mensual_67,2,",",".");      echo '</td>';	echo '<td>';	echo '<form action="prestamos_por_int.php" method="post">';	echo '<input type="hidden" name="cedulas" value="'.$cont_67.'" >';	echo '<input type="submit" value="Submit">';	echo '</form>';    echo '</td>';	echo '</tr>';	echo '<tr>';   	// prestamos al 5	echo '<td>';    echo "5%";      echo '</td>';	echo '<td>';    echo $cont_5;      echo '</td>';	echo '<td>';    echo number_format($total_5,2,",",".");      echo '</td>';	echo '<td>';	$ganancia_mensual_5=$total_5*0.05;    echo number_format($ganancia_mensual_5,2,",",".");      echo '</td>';	echo '<td>';	echo '<form action="prestamos_por_int.php" method="post">';	echo '<input type="hidden" name="cedulas" value="'.$cont_5.'" >';	echo '<input type="submit" value="Submit">';	echo '</form>';    echo '</td>';	echo '</tr>';	echo '<tr>';   	// prestamos al otros	echo '<td>';    echo "x%";      echo '</td>';	echo '<td>';    echo $cont_otros;      echo '</td>';	echo '<td>';    echo number_format($total_otros,2,",",".");      echo '</td>';	echo '<td>';	echo "Ap 5: ";	$ganancia_mensual_o=$total_otros*0.05;    echo number_format($ganancia_mensual_o,2,",",".");      echo '</td>';	echo '<td>';	echo '<form action="prestamos_por_int.php" method="post">';	echo '<input type="hidden" name="cedulas" value="'.$cont_otros.'" >';	echo '<input type="submit" value="Submit">';	echo '</form>';    echo '</td>';	echo '</tr>';	echo '<tr>';	echo '<td>';	echo "Total prestamos todos";	echo '</td>';	echo '<td>';	$total_todos_prest=$total_10+$total_75+$total_67+$total_5+$total_otros;	echo number_format($total_todos_prest,2,",","."); 	echo '</td>';	echo '<td>';	echo "Total saldos todos";	echo '</td>';	echo '<td>';	echo number_format($check_total_saldos,2,",","."); 	echo '</td>';	echo '<td>';	echo "Aprox uti";	echo '<br>';	$suma_ganancias=$ganancia_mensual_10+$ganancia_mensual_75+$ganancia_mensual_67+$ganancia_mensual_5+$ganancia_mensual_o;	echo number_format($suma_ganancias,2,",","."); 		echo '</td>';	echo '</tr>';	echo '</tr>';echo '</table>';echo '<br>';echo '<table class="tablalistado1"style="margin: 0 auto;">';echo '<tr><th>Nombre</th><th>Cedula</th><th>Fecha prestamo</th><th>Valor prestamo</th><th>Ver detalles</th></tr>';      while($read=$regist->fetch_array()){echo '<tr>';      echo '<td>';    echo $read['nombre'];      echo '</td>';         echo '<td>';    echo $read['cedula'];      echo '</td>';          echo '<td>';    echo $read['fecha_prest'];      echo '</td>'; 		echo '<td>';	echo number_format($read['valorprestamo'],2,",",".");      echo '</td>';         echo '<td>';    echo '<a href="Form_ detalle_cuentas_todos.php?cedula='.$read['cedula'].'">Ver Detalles</a>';    echo '</td>'; 		 echo '</tr>';    }        echo '</table>';?></body></html>
+<html>
+
+<head>
+
+ <link href="style.css" rel="stylesheet">
+
+<title>Lista Clientes con prestamo</title>
+
+  <br>
+
+</head>  
+
+<body>
+<?php
+
+include("datos.php");
+$Cobro=$_REQUEST['Cobro'];
+mysqli_set_charset($mysql,'utf8');
+$regist1=$mysql->query("SELECT COUNT(*) from clientes JOIN prestamos on clientes.cedula=prestamos.cedula where prestamos.Cobro=$Cobro");
+$regist=$mysql->query("SELECT nombre, prestamos.cedula, fecha_prest, valorprestamo from clientes JOIN prestamos on clientes.cedula=prestamos.cedula where prestamos.Cobro=$Cobro");
+$read1=$regist1->fetch_array();
+echo '<h2>Clientes con prestamo: '.$read1['COUNT(*)'].'</h2>';
+
+// prestamos segun interes
+$get_tasas=$mysql->query("SELECT * from prestamos where Cobro=$Cobro");     
+while($read_tasas=$get_tasas->fetch_array()){
+	$contador=$contador+1;
+	$total_pagar_t=$read_tasas['totalapagar'];
+	$months=get_meses($read_tasas['n_cuotas'], $read_tasas['periodicidad']);
+	$rate=($read_tasas['totalapagar']-$read_tasas['valorprestamo'])/$months;
+	$rate_mes_porc=($rate*100)/$read_tasas['valorprestamo'];
+	$check_total_saldos=$read_tasas['tt_saldo']+$check_total_saldos;
+	 $rate_aprox=number_format($rate_mes_porc,2,",",".");
+	if($rate_aprox=="10,00"){
+		 $cont_10=$cont_10+1;
+		 $ced_10[]=$read_tasas['cedula'];
+		 $total_10=$read_tasas['valorprestamo']+$total_10;
+	}else {
+		if($rate_aprox=="5,00"){
+		 $cont_5=$cont_5+1;
+		 $ced_5[]=$read_tasas['cedula'];
+		 $total_5=$read_tasas['valorprestamo']+$total_5;
+		}else{
+			if($rate_aprox=="6,67"){
+			$cont_67=$cont_67+1;
+			$ced_67[]=$read_tasas['cedula'];
+			$total_67=$read_tasas['valorprestamo']+$total_67;
+			} else{
+				if($rate_aprox=="7,50"){
+					 $cont_75=$cont_75+1;
+					 $ced_75[]=$read_tasas['cedula'];
+					 $total_75=$read_tasas['valorprestamo']+$total_75;
+				}else{
+					 $cont_otros=$cont_otros+1;
+					 $ced_otros[]=$read_tasas['cedula'];
+					 $total_otros=$read_tasas['valorprestamo']+$total_otros;
+					 
+				}
+			}
+		}
+	}
+	
+	
+	
+}
+
+function get_meses($n_cuotas, $periodicidad){
+	if($periodicidad=="diario"){
+		$meses=$n_cuotas/30;
+	}
+	if($periodicidad=="semanal"){
+		$meses=$n_cuotas/4;
+	}
+	if($periodicidad=="quincenal"){
+		$meses=$n_cuotas/2;
+	}
+	if($periodicidad=="mensual"){
+		 $meses=$n_cuotas/1;
+	}
+	return $meses;
+}
+
+
+
+echo '<table class="tablalistado1"style="margin: 0 auto;">';
+echo '<tr><th>Nombre</th><th>Cedula</th><th>Fecha prestamo</th><th>Valor prestamo</th><th>Ver detalles</th></tr>';
+      
+while($read=$regist->fetch_array()){
+echo '<tr>';   
+   echo '<td>';
+    echo $read['nombre'];  
+    echo '</td>'; 
+    
+    echo '<td>';
+    echo $read['cedula'];  
+    echo '</td>'; 
+    
+     echo '<td>';
+    echo $read['fecha_prest'];  
+    echo '</td>'; 
+	
+	echo '<td>';
+	echo number_format($read['valorprestamo'],2,",",".");  
+    echo '</td>'; 
+    
+    echo '<td>';
+    echo '<a href="'.$url.'client/'.$read['cedula'].'/edit">Ver Detalles</a>';
+    echo '</td>'; 
+	
+	 echo '</tr>';
+    }
+    
+   
+
+
+ 
+echo '</table>';
+
+?>
+
+</body>
+
+</html>

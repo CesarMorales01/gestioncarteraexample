@@ -2,7 +2,7 @@
 
 <head>
 
-<link rel="StyleSheet" href="estilos.php" type="text/css">
+ <link href="style.css" rel="stylesheet">
 
 <title>Lista Clientes en Mora</title>
 

@@ -68,7 +68,7 @@ $form_value=number_format($value, 0,',','.');
       <br>
       </div>
       <div class="col-xl-3" >
-      <img id="imagen" style="width=100px; margin:40px; height:100px;"  src=""><br>
+
       </div>
       </div> 
   </div>

@@ -2,7 +2,7 @@
 
 <head>
 
-   <link rel="StyleSheet" href="estilos.php" type="text/css"> 
+ <link href="style.css" rel="stylesheet">
 
   <title>Solicitudes ya soy cliente. Respuestas.</title>
 
@@ -27,7 +27,7 @@ $extension=".txt";
 $nombre_archivo=$get_fecha.$extension; 
 
 echo '<table class="tablalistado"  style="margin: 0 auto;"  >';
-echo '<tr><th><a href="form_solicitudes_dos.php">Form Ya soy cliente</a></th>';
+echo '<tr><th><a href="form_solicitudes_dos.php">Formulario Ya soy cliente</a></th>';
 echo '<th><a href="Form_solicitud_first_time.php">Form cliente nuevo</a></th>';
 echo '<th><a href="Respuestas_solicitudes_uno.php">Respuestas cliente nuevo</a></th></tr>';
 echo '<tr><th><a href="Guardar_copia_solicitudes_dos.php?nombre_archivo='.$nombre_archivo.'">Guardar tabla</a></th>';
@@ -45,7 +45,7 @@ $mysql=new mysqli($hostname_localhost,$username_localhost,$password_localhost,$d
 
 $registros=$mysql->query("select * from solicitudes_dos ORDER by fecha DESC") or die ("problemas en la consulta");	
 
-echo '<table class="tabencabezado"  style="margin: 0 auto;"  >';
+echo '<table class="tablalistado"  style="margin: 0 auto;"  >';
 echo '<tr><th>Fecha</th><th>Nombre</th><th>Cedula</th><th>Direccion</th><th>Telefono fijo</th><th>Celular</th><th>Valor</th><th>Periodicidad</th><th>Eliminar</th><th>Otros</th><th>Sugerencias</th></tr>';	
 $saveIds=[];
 while($reg=$registros->fetch_array()){

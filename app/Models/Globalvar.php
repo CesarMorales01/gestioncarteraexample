@@ -16,10 +16,10 @@ class Globalvar extends Model
     {
         $this->globalVars = new stdClass();
         //$this->globalVars->urlRoot = "https://bellohogar.online/";
-        $this->globalVars->urlRoot = "https://carteraexample.tupaginaweb.site/";
+        $this->globalVars->urlRoot = "http://192.168.1.26:8000/history/";
 
         // $this->globalVars->myUrl="https://xxxx.bellohogar.online/";
-        $this->globalVars->myUrl = "http://carteraexample.test/";
+        $this->globalVars->myUrl = "http://192.168.1.26:8000/";
 
         // $this->globalVars->tablaCarteras="Carteras";
         $this->globalVars->tablaCarteras="carteras";

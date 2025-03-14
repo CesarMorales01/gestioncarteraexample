@@ -372,8 +372,8 @@ const IngresarClient = (params) => {
                     <input type="hidden" name='_token' value={params.token} />
                     <input type="hidden" name='fecha' value={newDatosPersonales.fecha} />
                     <input type="hidden" name='cedulaAnterior' value={params.cliente.cedula} />
-                    <input type="hidden" name='cedFrontalAnterior' value={params.cliente.fotoCedula!=null ? params.cliente.fotoCedula.cedFrontal : ''} />
-                    <input type="hidden" name='cedPosteriorAnterior' value={params.cliente.fotoCedula!=null ? params.cliente.fotoCedula.cedPosterior : ''} />
+                    <input type="hidden" name='cedFrontalAnterior' value={params.cliente.fotoCedula != null ? params.cliente.fotoCedula.cedFrontal : ''} />
+                    <input type="hidden" name='cedPosteriorAnterior' value={params.cliente.fotoCedula != null ? params.cliente.fotoCedula.cedPosterior : ''} />
                     {/* datos personales*/}
                     <div id="div_datos_personales" style={{ backgroundColor: '#f4f4f4', padding: '0.4em' }}>
                         <div className="row justify-content-center" >
@@ -383,17 +383,50 @@ const IngresarClient = (params) => {
                                 <input type="text" name='nombre' onChange={cambioNombre} id='inputNombre' className="form-control rounded" value={newDatosPersonales.nombre == '' ? '' : newDatosPersonales.nombre} />
                                 <p style={{ textAlign: 'justify', color: 'black', marginTop: '0.5em' }}>Apellidos (Opcional)</p>
                                 <input type="text" name='apellidos' onChange={cambioApellidos} id='inputApellidos' className="form-control rounded" value={newDatosPersonales.apellidos == '' ? '' : newDatosPersonales.apellidos} />
-                                <p style={{ textAlign: 'justify', color: 'black', marginTop: '0.5em' }}>Cédula</p>
-                                <input name='cedula' readOnly={params.cliente.cedula ? true : false} type="number" id='inputCedula' onChange={cambioCedula} placeholder="Número de cédula" className="form-control rounded" defaultValue={newDatosPersonales.cedula == '' ? '' : newDatosPersonales.cedula} />
                             </div>
                             <div className="col-lg-3 col-sm-12" >
                                 <strong style={{ fontSize: '1em' }} >Foto cliente (Opcional)</strong>
                                 <input name='imagen' data-toggle="tooltip" id='fileImagen' title="" type="file" onChange={(e) => mostrarImagen(e, 'img')} />
                                 <input type='hidden' name='imagenAnterior' defaultValue={params.cliente.imagen}></input>
                                 <br /><br />
-                                <img onClick={()=>bigImage(newDatosPersonales.imagen)} onLoad={() => spinOff('spanvalidandoNombreImagen')} className='border centerImg' id="img" width="60%" height="auto" src={newDatosPersonales.imagen == '' ? params.globalVars.myUrl + "Images/Config/noPreview.jpg" : newDatosPersonales.imagen} />
+                                <img onClick={() => bigImage(newDatosPersonales.imagen)} onLoad={() => spinOff('spanvalidandoNombreImagen')} className='border centerImg' id="img" width="60%" height="auto" src={newDatosPersonales.imagen == '' ? params.globalVars.myUrl + "Images/Config/noPreview.jpg" : newDatosPersonales.imagen} />
                                 <span id='spanvalidandoNombreImagen' style={{ display: '' }} className="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-                                <i onClick={()=>bigImage(newDatosPersonales.imagen)} style={{ paddingTop: '1em', padding: '0.8em', display: newDatosPersonales.imagen != '' ? '' : 'none' }} className="fa-solid fa-magnifying-glass-plus fa-xs btn btn-outline-info btn-sm"></i>
+                                <i onClick={() => bigImage(newDatosPersonales.imagen)} style={{ paddingTop: '1em', padding: '0.8em', display: newDatosPersonales.imagen != '' ? '' : 'none' }} className="fa-solid fa-magnifying-glass-plus fa-xs btn btn-outline-info btn-sm"></i>
+                            </div>
+                        </div>
+                        <div className="row justify-content-center" >
+                            <div className="col-lg-5 col-sm-12" >
+                                <p style={{ textAlign: 'justify', color: 'black', marginTop: '0.5em' }}>Cédula</p>
+                                <input name='cedula' readOnly={params.cliente.cedula ? true : false} type="number" id='inputCedula' onChange={cambioCedula} placeholder="Número de cédula" className="form-control rounded" defaultValue={newDatosPersonales.cedula == '' ? '' : newDatosPersonales.cedula} />
+                            </div>
+                            <div className="col-lg-3 col-sm-12" >
+                            </div>
+                        </div>
+                    </div>
+                    <div style={{ backgroundColor: '#f4f4f4', padding: '0.5em' }}>
+                        {/* Div fotos cedula*/}
+                        <div style={{ marginBottom: '1em', textAlign: 'center' }} className='row'>
+
+                            <strong style={{ fontSize: '1em' }} >Fotos cedula cliente (Opcionales)</strong>
+                            <div className="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12" >
+                                <strong style={{ fontSize: '1em' }} >Frontal</strong>
+                                <br></br>
+                                <input name='cedFrontal' data-toggle="tooltip" id='fileImagen' title="" type="file" onChange={(e) => mostrarImagen(e, 'imgCed1')} />
+                                <input type='hidden' name='imagenAnterior' defaultValue={params.cliente.imagen}></input>
+                                <br /><br />
+                                <img onClick={() => bigImage(newDatosPersonales.cedFrontal)} onLoad={() => spinOff('spingCedula1')} className='border centerImg' id="imgCed1" width="40%" height="auto" src={newDatosPersonales.cedFrontal == '' ? params.globalVars.myUrl + "Images/Config/noPreview.jpg" : newDatosPersonales.cedFrontal} />
+                                <span id='spingCedula1' style={{ display: '' }} className="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                                <i onClick={() => bigImage(newDatosPersonales.cedFrontal)} style={{ paddingTop: '1em', padding: '0.8em', display: newDatosPersonales.cedFrontal != '' ? '' : 'none' }} className="fa-solid fa-magnifying-glass-plus fa-xs btn btn-outline-info btn-sm"></i>
+                            </div>
+                            <div className="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12" >
+                                <strong style={{ fontSize: '1em' }} >Posterior</strong>
+                                <br></br>
+                                <input name='cedPosterior' data-toggle="tooltip" id='fileImagen' title="" type="file" onChange={(e) => mostrarImagen(e, 'imgCed2')} />
+                                <input type='hidden' name='imagenAnterior' defaultValue={params.cliente.imagen}></input>
+                                <br /><br />
+                                <img onClick={() => bigImage(newDatosPersonales.cedPosterior)} onLoad={() => spinOff('spingCedula2')} className='border centerImg' id="imgCed2" width="40%" height="auto" src={newDatosPersonales.cedPosterior == '' ? params.globalVars.myUrl + "Images/Config/noPreview.jpg" : newDatosPersonales.cedPosterior} />
+                                <span id='spingCedula2' style={{ display: '' }} className="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                                <i onClick={() => bigImage(newDatosPersonales.cedPosterior)} style={{ paddingTop: '1em', padding: '0.8em', display: newDatosPersonales.cedPosterior != '' ? '' : 'none' }} className="fa-solid fa-magnifying-glass-plus fa-xs btn btn-outline-info btn-sm"></i>
                             </div>
                         </div>
                     </div>
@@ -442,30 +475,6 @@ const IngresarClient = (params) => {
                                 )
                             })}
                         </select>
-                    </div>
-                    {/* Div fotos cedula*/}
-                    <div style={{ marginBottom: '1em', textAlign: 'center' }} className='row'>
-                        <strong style={{ fontSize: '1em' }} >Fotos cedula cliente (Opcionales)</strong>
-                        <div className="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12" >
-                            <strong style={{ fontSize: '1em' }} >Frontal</strong>
-                            <br></br>
-                            <input name='cedFrontal' data-toggle="tooltip" id='fileImagen' title="" type="file" onChange={(e) => mostrarImagen(e, 'imgCed1')} />
-                            <input type='hidden' name='imagenAnterior' defaultValue={params.cliente.imagen}></input>
-                            <br /><br />
-                            <img onClick={()=>bigImage(newDatosPersonales.cedFrontal)} onLoad={() => spinOff('spingCedula1')} className='border centerImg' id="imgCed1" width="40%" height="auto" src={newDatosPersonales.cedFrontal == '' ? params.globalVars.myUrl + "Images/Config/noPreview.jpg" : newDatosPersonales.cedFrontal} />
-                            <span id='spingCedula1' style={{ display: '' }} className="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-                            <i onClick={()=>bigImage(newDatosPersonales.cedFrontal)} style={{ paddingTop: '1em', padding: '0.8em', display: newDatosPersonales.cedFrontal != '' ? '' : 'none' }} className="fa-solid fa-magnifying-glass-plus fa-xs btn btn-outline-info btn-sm"></i>
-                        </div>
-                        <div className="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12" >
-                            <strong style={{ fontSize: '1em' }} >Posterior</strong>
-                            <br></br>
-                            <input name='cedPosterior' data-toggle="tooltip" id='fileImagen' title="" type="file" onChange={(e) => mostrarImagen(e, 'imgCed2')} />
-                            <input type='hidden' name='imagenAnterior' defaultValue={params.cliente.imagen}></input>
-                            <br /><br />
-                            <img onClick={()=>bigImage(newDatosPersonales.cedPosterior)} onLoad={() => spinOff('spingCedula2')} className='border centerImg' id="imgCed2" width="40%" height="auto" src={newDatosPersonales.cedPosterior == '' ? params.globalVars.myUrl + "Images/Config/noPreview.jpg" : newDatosPersonales.cedPosterior} />
-                            <span id='spingCedula2' style={{ display: '' }} className="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-                            <i onClick={()=>bigImage(newDatosPersonales.cedPosterior)} style={{ paddingTop: '1em', padding: '0.8em', display: newDatosPersonales.cedPosterior != '' ? '' : 'none' }} className="fa-solid fa-magnifying-glass-plus fa-xs btn btn-outline-info btn-sm"></i>
-                        </div>
                     </div>
                     <hr style={{ width: '60%', margin: '0.5em', marginLeft: 'auto', marginRight: 'auto' }}></hr>
                     <div style={{ textAlign: 'center' }}>

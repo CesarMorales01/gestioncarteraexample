@@ -16,19 +16,19 @@ class Globalvar extends Model
     {
         $this->globalVars = new stdClass();
         //$this->globalVars->urlRoot = "https://bellohogar.online/";
-        $this->globalVars->urlRoot = "https://carteraexample.tupaginaweb.site/history/";
+        $this->globalVars->urlRoot = "http://147.93.118.6/carteraexample/history/";
 
         // $this->globalVars->myUrl="https://xxxx.bellohogar.online/";
-        $this->globalVars->myUrl = "https://carteraexample.tupaginaweb.site/";
+        $this->globalVars->myUrl = "http://147.93.118.6/carteraexample/";
 
         // $this->globalVars->tablaCarteras="Carteras";
         $this->globalVars->tablaCarteras="carteras";
 
         //$nombreApp="carteraTrabajarMejor";
        // $this->globalVars->dirImagenes = "C:\/laragon\www\/".$nombreApp."\/public\Images\/Clients\/";
-          $this->globalVars->dirImagenes = "/home/u629086351/domains/tupaginaweb.site/public_html/carteraexample/public/Images/Clients/";
+          $this->globalVars->dirImagenes = "/var/www/carteraexample/public_html/public/Images/Clients/";
 
-        $this->globalVars->dirCedulas = "/home/u629086351/domains/tupaginaweb.site/public_html/carteraexample/public/Images/Cedulas/";
+        $this->globalVars->dirCedulas = "/var/www/carteraexample/public_html/public/Images/Cedulas/";
         $this->globalVars->urlCedulas =  $this->globalVars->myUrl."Images/Cedulas/";
  
         $this->globalVars->urlImagenes =  $this->globalVars->myUrl."Images/Clients/";

@@ -33,7 +33,7 @@
   <?php
   include("datos.php");
   $Cobro = $_REQUEST['Cobro'];
-  $consultar_totales = $mysql->query("SELECT * FROM totales where Cobro=$Cobro") or die("problemas en consultar totales");
+  $consultar_totales = $mysql->query("SELECT * FROM totales where Cobro=$Cobro order by Mes desc") or die("problemas en consultar totales");
   // TABLA TOTALES
   echo '<table class="tablalistado" style="margin: 0 auto;">';
   echo '<tr><th>PERIODO</th> <th>TOTAL CUENTAS</th> <th>TOTAL ABONOS</th><th>%</th> <th>TOTAL SALDOS</th><th>%</th><th> <a href="Fechax_clientes_enmora.php?Cobro=' . $Cobro . '&fecha=' . $get_global_fecha_hoy_comis . '">TOTAL CARTERA EN MORA</a></th><th>%</th>';
@@ -97,7 +97,7 @@
   echo '</table>';
   echo '</form>';
 
-  $consultar_htotales = $mysql->query("SELECT * FROM Historial_totales where Cobro=$Cobro") or die("problemas en consultar Historialtotales");
+  $consultar_htotales = $mysql->query("SELECT * FROM Historial_totales where Cobro=$Cobro order by Mes desc") or die("problemas en consultar Historialtotales");
   // TABLA HISTORIAL TOTALES
   echo '<h1>Historial Totales</h1>';
   echo '<table class="tablalistado" style="margin: 0 auto;">';

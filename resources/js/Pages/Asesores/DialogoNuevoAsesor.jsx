@@ -85,7 +85,7 @@ const DialogoNuevoAsesor = (params) => {
         }
         setHoras(horas)
         const minutos = []
-        for (let i = 0; i < 61; i += 10) {
+        for (let i = 0; i < 51; i += 10) {
             let h = i
             if (i < 10) {
                 h = '0' + i

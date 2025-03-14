@@ -70,8 +70,8 @@ $resultado_insert=mysqli_query($conexion,$insert) or die ("problemas al insertar
 
 if($resultado_insert){
    echo "registra";
-   notificar();
-   $href="https://tucasabonita.site/Financiera/financieramirey/Autorespuesta_solicitudes_dos.php?valor=";
+  // notificar();
+   $href=$url."/history/Autorespuesta_solicitudes_dos.php?valor=";
    $max="&max_pres=";
    $mas_ced="&cedula=";
 	$url=$href.$valor1.$max.$max_prest.$mas_ced.$cedula1; 
@@ -82,7 +82,7 @@ if($resultado_insert){
 
 function notificar(){
 		$subject=utf8_decode("Nueva solicitud!"); 
-		$texto= "https://tucasabonita.site/Financiera/financieramirey/Respuestas_solicitudes_dos.php";
+		$texto= "https://tucasabonita.site/Financiera/financieramirey/Respuesta_solicitudes_dos.php";
 		$name= utf8_decode($GLOBALS['nombre']);
 		$correo= "cezar_mh86@hotmail.com";
 		mail($correo, $subject, $texto, $name);

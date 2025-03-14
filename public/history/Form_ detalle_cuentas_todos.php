@@ -1,6 +1,6 @@
 <?php
- $url="https://gestioncarteralarcon.tucasabonita.site/client/".$_REQUEST['cedula']."/edit";
-header("Location:".$url);
+ $url1=$url.$_REQUEST['cedula']."/edit";
+header("Location:".$url1);
 return;
 
 include("datos.php");

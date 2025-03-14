@@ -25,21 +25,20 @@
     background-size: cover;" >
   <div class="container">
   <br>
-  <img height="120" style="margin:auto; display:block;" src="Imagenes/Logo_financiera_casabonita.jpg">    
+   
   <br>
-  <h2 style="color:black;">Solicitud de credito N° 2. Ya soy cliente.</h2>
+  <h2 style="color:black; text-align: center;" >Solicitud de credito N° 2. Ya soy cliente.</h2>
   <hr> 
   <form method="post" action="ingresar_solicitud_clientes_dos_web.php">
-  <div class="row">
+  <div >
   <p style="text-align:left;">Agradecemos actualices tu información. La usaremos para contactanos contigo.</p>
-  <br> 
   <p style="text-align:left; color:red;">*Obligatorio</p> 
-  <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
-          <p id="ingresaCedula" style="text-align:justify; color:black;">Ingresa tu número de cédula.<strong style="color:red;">*</strong></p>
+   <br>
+            <p id="ingresaCedula" style="text-align:justify; color:black;">Ingresa tu número de cédula.<strong style="color:red;">*</strong></p>
             <input type="number" onfocusout="buscar_datos()" name="cedula" class="form-control" placeholder="Número de cedula" id="cedula" required> 
             <br> 
             <p<strong style="color:red;">*</strong></p> 
-          <input type="text" name="nombre" class="form-control"   placeholder="Nombre" id="nombre" required> 
+            <input type="text" name="nombre" class="form-control"   placeholder="Nombre" id="nombre" required> 
             <br>
             <p<strong style="color:red;">*</strong></p>
             <textarea name="direccion" id="direccion" rows="2" class="form-control" required placeholder="Direccion domicilio"></textarea> 
@@ -73,27 +72,7 @@
           <input type="hidden" name="max_prest"  id="max_prest"> 
           <input  type="submit"  style="color:black; background-color:green;" class="form-control"  value="Enviar solicitud" > 
           </form>   
-      </div>
-      <div onclick="ir_playstore()" style="text-align:center; cursor:pointer;" class="col-xs-12 col-sm-6 col-md-6 col-lg-6"> 
-      <br> <hr id="hr" class="border border-dark"><br> 
       
-      <img width="300" height="300" src="Imagenes/financiera_playstore.png" style="margin:auto; display:block;" alt="Placeholder image"> 
-      <br>  
-      <a onclick="ir_playstore()" type="button" class="btn btn-success">Click aquí para descargar la app!</a>  
-      <br><br>
-      <ul>
-        <h5><strong>Desde la app podrás:</strong></h5>
-        <li>Consultar tu saldo</li>
-        <li>Consultar abonos</li>
-        <li>Realizar pagos</li>
-        <li>Hacer solicitudes de crédito</li>
-        <li>Enterarte de promociones y descuentos!</li>
-        <li>Télefonos de contacto.</li>
-        <li>Y mucho más!</li>
-        </ul> 
-      <br>
-      </div>
-    </div>
   </div> 
   <!--- Ventana promo -->
   <a class="nav-link" data-toggle="modal" id="ancla_dialogo" data-target="#dialogo1"></a>
@@ -112,7 +91,6 @@
  <!-- FIN DIALOGO -->
 
 <script>
-location.href ="https://financiera.tucasabonita.site/request/Im/already/customer/city/bga";  
 var cedula;
 //document.getElementById('ancla_dialogo').click();
 var width = this.innerWidth;
